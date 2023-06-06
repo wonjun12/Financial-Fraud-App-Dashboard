@@ -2,12 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-
-
 from .inputs_date import set_date_st
-from .pie_bar_chart import create_pie_chart, create_bar_chart
 
 from .app_damage_module.app_damage_total import run_total_damage_st, run_total_week_st, run_total_opstions_st
+from .app_damage_module.app_damage_sex import run_sex_st, run_sex_opstions_st
+from .app_damage_module.app_damage_age import run_age_st, run_age_opstions_st
 
 def set_weeks(df):
     weeks_list = ['월', '화', '수', '목', '금', '토', '일']
@@ -17,7 +16,16 @@ def set_weeks(df):
 
     return df
 
+def select_week():
+    st.markdown("""---""")
+    st.subheader('요일별 데이터 확인')
+    week_list = {
+        '평일/주말 기준' : 'is_week' , 
+        '요일 기준':'weeks'
+        }
+    selected__week = st.selectbox('요일 그룹 확인', week_list.keys())
 
+    return week_list[selected__week]
 
 def run_damage_func():
     st.title('피해 데이터')
@@ -49,49 +57,28 @@ def run_damage_func():
         df_sharch['RGSTN_DT'] = pd.to_datetime(df_sharch['RGSTN_DT'])
 
         start_date, end_date = set_date_st(df_sharch['RGSTN_DT'].min(), df_sharch['RGSTN_DT'].max())
-        df_sharch = df_sharch.loc[(df_sharch['RGSTN_DT'] >= start_date) & (df_sharch['RGSTN_DT'] <= end_date), ]
+        df_sharch_copy = df_sharch.loc[(df_sharch['RGSTN_DT'] >= start_date) & (df_sharch['RGSTN_DT'] <= end_date), ]
 
-        df_sharch = set_weeks(df_sharch)
+        df_sharch_copy = set_weeks(df_sharch_copy)
         if selected_title != title_list[0]:
             st.subheader(f'{selected_title} 기준 | {selected_opstion} 피해 조회 데이터')
 
         if selected_title == title_list[1]:
             if selected_opstion == '발생 수':
-                run_total_damage_st(df_sharch)
+                run_total_damage_st(df_sharch_copy)
             else :
                 run_total_opstions_st(df_sharch, selected_opstion)
+                week = select_week()
+                run_total_week_st(df_sharch_copy, week)
+        elif selected_title == title_list[2]:
+            run_sex_st(df_sharch_copy)
+            week = select_week()
+            run_sex_opstions_st(df_sharch_copy, week)
+        elif selected_title == title_list[3]:
+            run_age_st(df_sharch_copy)
+            week = select_week()
+            run_age_opstions_st(df_sharch_copy, week)
 
-                st.markdown("""---""")
-                st.subheader('요일별 데이터 확인')
-                week_list = {
-                    '평일/주말 기준' : 'is_week' , 
-                    '요일 기준':'weeks'
-                    }
-                selected__week = st.selectbox('요일 그룹 확인', week_list.keys())
-
-                run_total_week_st(df_sharch, week_list[selected__week])
-            
-
-
-                # df_values = df_sharch.groupby('TYPE')['DAMAGE'].value_counts().to_frame(name = 'COUNT').reset_index()
-                # min_value, max_value = view_size(df_values['DAMAGE'].unique())
-                # fig = px.bar(df_values, x='DAMAGE', y='COUNT', color='TYPE', range_x=[min_value, min_value+max_value])
-                # fig.update_layout(title = title_str, xaxis=dict(title=''), yaxis=dict(title=''))
-                # st.plotly_chart(fig)
-
-            
-            
-            # df_groups = df_sharch.groupby(week_list[selected__week])
-            # selected_week_option = st.selectbox('상세 옵션 선택', df_sharch[week_list[selected__week]].unique())
-
-            # if selected_title == title_list[1]:
-            #     df_groups = df_groups['DAMAGE'].value_counts().to_frame(name = 'COUNT').reset_index()
-            #     df_groups_value = df_groups.loc[df_groups[week_list[selected__week]] == selected_week_option, ['DAMAGE', 'COUNT']][min_value: min_value+max_value]
-            #     min_value, max_value = view_size(df_groups_value)
-            #     create_pie_chart(df_groups_value, 'COUNT', df_groups_value['DAMAGE'], f'{selected_week_option} 기준 상위 데이터')
-            #     create_bar_chart(df_groups_value, 'COUNT', df_groups_value['DAMAGE'], f'{selected_week_option} 기준 상위 데이터')
-            # else:
-            #     pass
 
         st.markdown("""---""")
         st.subheader('참고 데이터 확인')
