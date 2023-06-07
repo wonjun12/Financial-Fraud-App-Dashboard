@@ -4,12 +4,12 @@ import pandas as pd
 from .view_sizes import view_size
 from .inputs_date import set_date_st
 from .pie_bar_chart import create_pie_chart, create_bar_chart
-def view_chart(df):
+def view_chart(df, title):
     start_date, end_date = set_date_st(df['RGSTN_DT'].min(), df['RGSTN_DT'].max())
 
     df_shrch = df.loc[(df['RGSTN_DT'] >= start_date) & (df['RGSTN_DT'] <= end_date), ]
 
-    st.subheader('시도 기준')
+    st.subheader(f'{title} | 시도')
     
     df_wdar = df_shrch.value_counts('WDAR_CTPR_NM').to_frame(name='COUNT')
     
@@ -18,7 +18,7 @@ def view_chart(df):
     create_bar_chart(df_wdar[min_value:min_value+max_value],'COUNT', df_wdar[min_value:min_value+max_value].index,  '시도 그래프')
 
     st.markdown("""---""")
-    st.subheader('시군구 기준')
+    st.subheader(f'{title} | 시군구')
 
     wdar_list = df_wdar.index
     selected_wdar = st.selectbox('원하시는 기준점을 선택하세요!', wdar_list)
@@ -43,7 +43,7 @@ def run_resion_func():
     st.markdown("""---""")
 
     if selected_box != select_list[0]:
-        view_chart(df.loc[df['IBBN'] == selected_box[:3], ])
+        view_chart(df.loc[df['IBBN'] == selected_box[:3], ], selected_box)
 
         st.markdown("""---""")
         st.subheader('데이터 확인')
