@@ -16,5 +16,5 @@ def run_about_func():
        - 피해자 성별 기준 데이터
        - 피해자 나이 기준 데이터
     
-    다운로드 : [스마트 치안 빅데이터 : 금융사기] (https://www.bigdata-policing.kr/product/list?vendor_code=all&product_category=&product_type=all&datepicker_type=all&datepicker_from=&datepicker_to=&price_yn=all&orderby=&dateGroup=all&feeGroup=all&dataGruop=all&keyword=%EA%B8%88%EC%9C%B5%EC%82%AC%EA%B8%B0)
+    다운로드 : [스마트 치안 빅데이터 : 금융사기](https://www.bigdata-policing.kr/product/list?vendor_code=all&product_category=&product_type=all&datepicker_type=all&datepicker_from=&datepicker_to=&price_yn=all&orderby=&dateGroup=all&feeGroup=all&dataGruop=all&keyword=%EA%B8%88%EC%9C%B5%EC%82%AC%EA%B8%B0)
     """)
