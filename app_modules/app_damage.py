@@ -32,20 +32,15 @@ def run_damage_func():
             opsion_list = df['IBBN'].unique()
         else:
             df = pd.read_csv('data/TCH_Victim.csv')
-            df = df.loc[df['IBBN'].str.contains(selected_title)]
+            df = df.loc[df['IBBN'].str.contains(selected_title), ]
             opsion_list = df['IBBN'].unique()
-
-        str_split = lambda x : x[3:]
-        str_split_func = np.vectorize(str_split)
-        opsion_list = str_split_func(opsion_list) 
-            
 
         selected_opstion = st.radio('종류를 선택하세요!', opsion_list)
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
         st.markdown("""---""")
 
-        df_sharch = df.loc[df['IBBN'].str.contains(selected_opstion), ].copy()
+        df_sharch = df.loc[df['IBBN'] == selected_opstion, ].copy()
         df_sharch['RGSTN_DT'] = pd.to_datetime(df_sharch['RGSTN_DT'])
 
         start_date, end_date = set_date_st(df_sharch['RGSTN_DT'].min(), df_sharch['RGSTN_DT'].max())
@@ -72,8 +67,8 @@ def run_damage_func():
 
 
         st.markdown("""---""")
-        st.subheader('참고 데이터 확인')
-        if st.checkbox('참고 데이터 프레임 확인하기'):
+        st.subheader('데이터 확인')
+        if st.checkbox('데이터 프레임 확인하기'):
             st.dataframe(df)
             
 
