@@ -37,21 +37,23 @@ def run_total_damage_st(df):
 def run_total_opstions_st(df, opstions):
     title_str = f'{opstions} 데이터'
 
-    df_values = df['DAMAGE'].value_counts().to_frame(name = 'COUNT')
+    df_values = df.groupby('DAMAGE')['COUNT'].sum().sort_values(ascending = False).to_frame()
+
     min_value, max_value = view_size(df_values, 1)
     create_pie_chart(df_values[min_value:min_value+max_value], 'COUNT', df_values[min_value:min_value+max_value].index, title_str)
     create_bar_chart(df_values[min_value:min_value+max_value], 'COUNT', df_values[min_value:min_value+max_value].index, title_str)
 
 
 def run_total_week_st(df, week):
-    df_groups = df.groupby(week)['DAMAGE'].value_counts().to_frame(name = 'COUNT').reset_index()
-    selected_week_option = st.selectbox('상세 옵션 선택', df[week].unique())
 
-    df_groups_value = df_groups.loc[df_groups[week] == selected_week_option, ['DAMAGE', 'COUNT']].reset_index(drop=True)
+    selected_week_option = st.selectbox('상세 옵션 선택', df[week].unique())
+    df_groups = df.loc[df[week] == selected_week_option, ['DAMAGE', 'COUNT']]
+    df_groups_value = df_groups.groupby('DAMAGE')['COUNT'].sum().sort_values(ascending=False).to_frame().reset_index()
+
     min_value, max_value = view_size(df_groups_value, 2)
     
     df_groups_value = df_groups_value.iloc[min_value: min_value+max_value, ]
     
-    
+
     create_pie_chart(df_groups_value, 'COUNT', df_groups_value['DAMAGE'], f'{selected_week_option} 기준 상위 데이터')
     create_bar_chart(df_groups_value, 'COUNT', df_groups_value['DAMAGE'], f'{selected_week_option} 기준 상위 데이터')

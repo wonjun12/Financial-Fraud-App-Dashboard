@@ -50,7 +50,7 @@ def run_damage_func():
             st.subheader(f'{selected_title} 기준 | {selected_opstion} 피해 조회 데이터')
 
         if selected_title == title_list[1]:
-            if selected_opstion == '발생 수':
+            if selected_opstion == '피해 발생 수':
                 run_total_damage_st(df_sharch_copy)
             else :
                 run_total_opstions_st(df_sharch, selected_opstion)

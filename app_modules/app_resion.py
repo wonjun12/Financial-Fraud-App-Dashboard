@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+from .view_sizes import view_size
 from .inputs_date import set_date_st
 from .pie_bar_chart import create_pie_chart, create_bar_chart
 def view_chart(df):
@@ -11,10 +12,10 @@ def view_chart(df):
     st.subheader('시도 기준')
     
     df_wdar = df_shrch.value_counts('WDAR_CTPR_NM').to_frame(name='COUNT')
-
-    set_size = st.slider('보여줄 기준점을 정해주세요!', min_value=0, max_value=df_wdar.shape[0]-10)
-    create_pie_chart(df_wdar[set_size:set_size+10], 'COUNT', df_wdar[set_size:set_size+10].index, '시도 그래프')
-    create_bar_chart(df_wdar[set_size:set_size+10],'COUNT', df_wdar[set_size:set_size+10].index,  '시도 그래프')
+    
+    min_value, max_value = view_size(df_wdar, 1)
+    create_pie_chart(df_wdar[min_value:min_value+max_value], 'COUNT', df_wdar[min_value:min_value+max_value].index, '시도 그래프')
+    create_bar_chart(df_wdar[min_value:min_value+max_value],'COUNT', df_wdar[min_value:min_value+max_value].index,  '시도 그래프')
 
     st.markdown("""---""")
     st.subheader('시군구 기준')
@@ -45,7 +46,7 @@ def run_resion_func():
         view_chart(df.loc[df['IBBN'] == selected_box[:3], ])
 
         st.markdown("""---""")
-        st.subheader('참고 데이터 확인')
-        if st.checkbox('참고 데이터 프레임 확인하기'):
+        st.subheader('데이터 확인')
+        if st.checkbox('데이터 프레임 확인하기'):
             st.dataframe(df)
     
