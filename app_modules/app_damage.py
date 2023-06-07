@@ -8,14 +8,6 @@ from .app_damage_module.app_damage_total import run_total_damage_st, run_total_w
 from .app_damage_module.app_damage_sex import run_sex_st, run_sex_opstions_st
 from .app_damage_module.app_damage_age import run_age_st, run_age_opstions_st
 
-def set_weeks(df):
-    weeks_list = ['월', '화', '수', '목', '금', '토', '일']
-    weeks = df['RGSTN_DT'].dt.dayofweek
-    df['weeks'] = weeks.map(lambda x : weeks_list[x])
-    df['is_week'] = weeks.map(lambda x: '평일' if x < 5 else '주말')
-
-    return df
-
 def select_week():
     st.markdown("""---""")
     st.subheader('요일별 데이터 확인')
@@ -53,13 +45,12 @@ def run_damage_func():
 
         st.markdown("""---""")
 
-        df_sharch = df.loc[df['IBBN'].str.contains(selected_opstion), ]
+        df_sharch = df.loc[df['IBBN'].str.contains(selected_opstion), ].copy()
         df_sharch['RGSTN_DT'] = pd.to_datetime(df_sharch['RGSTN_DT'])
 
         start_date, end_date = set_date_st(df_sharch['RGSTN_DT'].min(), df_sharch['RGSTN_DT'].max())
         df_sharch_copy = df_sharch.loc[(df_sharch['RGSTN_DT'] >= start_date) & (df_sharch['RGSTN_DT'] <= end_date), ]
 
-        df_sharch_copy = set_weeks(df_sharch_copy)
         if selected_title != title_list[0]:
             st.subheader(f'{selected_title} 기준 | {selected_opstion} 피해 조회 데이터')
 
