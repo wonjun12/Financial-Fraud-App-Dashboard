@@ -20,8 +20,9 @@
  ![Joblib](https://img.shields.io/badge/Python-Joblib-blue)
  ![Plotly](https://img.shields.io/badge/Python-Plotly.express-blue) 
 
-  - ## 3) 사이트
-    - [ec2-52-78-84-125.ap-northeast-2.compute.amazonaws.com:10001/](http://ec2-52-78-84-125.ap-northeast-2.compute.amazonaws.com:10001/)
+  - ## 3) 링크
+    - 사이트 : [ec2-52-78-84-125.ap-northeast-2.compute.amazonaws.com:10001/](http://ec2-52-78-84-125.ap-northeast-2.compute.amazonaws.com:10001/)
+    - 다운로드 : [금융 사기 데이터](https://www.bigdata-policing.kr/product/list?vendor_code=all&product_category=&product_type=all&datepicker_type=all&datepicker_from=&datepicker_to=&price_yn=all&orderby=&dateGroup=all&feeGroup=all&dataGruop=all&keyword=%EA%B8%88%EC%9C%B5%EC%82%AC%EA%B8%B0)
 
 
 ## 2. 기능
