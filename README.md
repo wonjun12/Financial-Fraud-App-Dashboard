@@ -12,7 +12,8 @@
   - ## 1) 기획 의도
     - 디지털 시대에서 금융사기가 많아지는 것을 예상할 수 있는데, 이를 데이터를 통해 방식과 발생 시기를 확인 할 수 있다.
     - 용의자 데이터와 피해자의 데이터를 통해 발생 빈도, 발생 시기를 확인해 사전에 예방할 수 있도록 해보자.
-    > ![image](image/reame_image1.PNG)
+    > ![image](https://github.com/wonjun12/Financial-Fraud-App-Dashboard/assets/108748094/27c76d3e-39f4-4418-b1cb-6c7ebcd3b5dd)
+
 
   - ## 2) 사용 기술
   ![aws ec2](https://img.shields.io/badge/Amazon_Web_Server-EC2-red) ![Anaconda](https://img.shields.io/badge/Python-Anaconda-blue) ![Streamlit](https://img.shields.io/badge/Python-Streamlit-blue) ![streamlit_option_menu](https://img.shields.io/badge/Python-streamlit_option_menu-blue) ![Numpy](https://img.shields.io/badge/Python-Numpy-blue)
@@ -60,6 +61,10 @@
           - 나이에 따라 가장 많이 사기를 당한 물품을 보여줍니다.
         - 나이 돈
           - 나이에 따라 가장 많이 사기를 당한 금액을 보여줍니다.
+![image](https://github.com/wonjun12/Financial-Fraud-App-Dashboard/assets/108748094/195b80c8-eae0-4950-85ba-902d44e8701f)
+![image](https://github.com/wonjun12/Financial-Fraud-App-Dashboard/assets/108748094/484c1ed0-6ace-4048-afcf-a2cb6d304c78)
+
+
 
 
 ## 3. 프로젝트 문제 해결
